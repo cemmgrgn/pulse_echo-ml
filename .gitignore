@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+.ipynb_checkpoints/
+
+# Editör / OS
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store
+gitea_init.bat
+*.bat
