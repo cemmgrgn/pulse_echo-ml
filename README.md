@@ -8,7 +8,7 @@ Geliştiren: **Cem Girgin**
 
 ---
 
-## `seshizi_ml/` paketi
+## `pulse_echo_ml/` paketi
 
 DSP çözümleme (paket/yankı tespiti, çapraz korelasyon + faz eğimi
 kestirimi) ve öznitelik çıkarımı burada kendi başına duran bir kopya
@@ -30,7 +30,7 @@ jupyter notebook notebooks/
 ## Dosya düzeni
 
 ```
-seshizi_ml/
+pulse_echo_ml/
 ├── ultrasonic.py          DSP çözümleme (bkz. yukarı)
 └── feature_extraction.py  Öznitelik çıkarımı
 
