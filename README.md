@@ -1,33 +1,20 @@
 # pulse_echo-ml
 
 Darbe-yankı ultrasonik ölçümden çelik kalınlığı kestiren makine öğrenmesi
-modelinin veri seti, öznitelik çıkarımı ve eğitim defterleri. Ölçüm
-uygulamasının kendisi ayrı bir depoda:
-[`callog_pulse_echo`](https://github.com/cemmgrgn/callog_pulse_echo)
-(paket: `callog_seshizi`).
+modelinin veri seti, öznitelik çıkarımı ve eğitim defterleri — üretilen
+`.pkl` modelleri ayrı bir ölçüm uygulaması tarafından tüketilir.
 
 Geliştiren: **Cem Girgin**
 
 ---
 
-## Bağımsızlık: `seshizi_ml/` paketi
+## `seshizi_ml/` paketi
 
-Defterler `callog_pulse_echo/callog_seshizi/ultrasonic.py` ve
-`feature_extraction.py` üzerine kurulu — DSP çözümleme algoritması
-(paket/yankı tespiti, çapraz korelasyon + faz eğimi kestirimi) ile
-öznitelik çıkarımı orada yazıldı. Bu depoyu `callog_pulse_echo`'ya bağımlı
-kılmamak için o iki dosyanın **bir kopyası** `seshizi_ml/` altında
-tutuluyor; defterler `callog_seshizi` değil `seshizi_ml` paketini içe
-aktarıyor.
-
-**Bunun bedeli:** bu bir kopya, canlı bağlantı değil. `callog_pulse_echo`
-tarafındaki `ultrasonic.py` ileride değişirse (örn. bir DSP hatası
-düzeltilirse) bu depodaki kopya kendiliğinden güncellenmez — elle
-senkronize edilmeli (`callog_pulse_echo/callog_seshizi/{ultrasonic,
-feature_extraction}.py` dosyalarını buraya kopyalayıp
-`feature_extraction.py`'deki `import seshizi_ml.ultrasonic` satırının
-doğru kaldığından emin olmak yeterli). Modeli üreten kod tam olarak burada
-donmuş durumda; bu, o modelin nasıl eğitildiğinin de bir kaydı.
+DSP çözümleme (paket/yankı tespiti, çapraz korelasyon + faz eğimi
+kestirimi) ve öznitelik çıkarımı burada kendi başına duran bir kopya
+olarak tutuluyor — canlı bir bağlantı/bağımlılık değil, dolayısıyla bu
+depo tek başına klonlanıp çalıştırılabilir. Modeli üreten kod tam olarak
+burada donmuş durumda; bu, o modelin nasıl eğitildiğinin de bir kaydı.
 
 ## Kurulum
 
@@ -44,8 +31,8 @@ jupyter notebook notebooks/
 
 ```
 seshizi_ml/
-├── ultrasonic.py          DSP çözümleme (ume-datalog'dan kopya, bkz. yukarı)
-└── feature_extraction.py  Öznitelik çıkarımı (ume-datalog'dan kopya)
+├── ultrasonic.py          DSP çözümleme (bkz. yukarı)
+└── feature_extraction.py  Öznitelik çıkarımı
 
 dataset/
 ├── index.jsonl          Her kayıt için metadata: kalınlık, ayar varyantı,
