@@ -2,7 +2,7 @@
 
 Darbe-yankı ultrasonik ölçümden çelik kalınlığı kestiren makine öğrenmesi
 modelinin veri seti, öznitelik çıkarımı ve eğitim defterleri — üretilen
-`.pkl` modelleri ayrı bir ölçüm uygulaması tarafından tüketilir.
+`.pkl` modelleri ayrı bir ölçüm uygulaması tarafından kullanılabilir.
 
 Geliştiren: **Cem Girgin**
 
