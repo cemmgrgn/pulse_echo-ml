@@ -6,7 +6,6 @@ Includes fast multi-threaded batch processing and disk caching.
 """
 
 import os
-import json
 import time
 import numpy as np
 import pandas as pd

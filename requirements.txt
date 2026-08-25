@@ -1,4 +1,4 @@
-# seshizi-ml — bağımlılıklar
+# pulse_echo-ml — bağımlılıklar
 
 numpy>=1.26
 pandas>=2.0

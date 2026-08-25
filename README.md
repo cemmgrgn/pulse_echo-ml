@@ -1,9 +1,10 @@
-# seshizi-ml
+# pulse_echo-ml
 
 Darbe-yankı ultrasonik ölçümden çelik kalınlığı kestiren makine öğrenmesi
 modelinin veri seti, öznitelik çıkarımı ve eğitim defterleri. Ölçüm
 uygulamasının kendisi ayrı bir depoda:
-[`ume-datalog`](https://git.cemgirgin.site/cemmgrgin/umedatalog)
+[`callog_pulse_echo`](https://github.com/cemmgrgn/callog_pulse_echo)
+(paket: `callog_seshizi`).
 
 Geliştiren: **Cem Girgin**
 
@@ -11,21 +12,22 @@ Geliştiren: **Cem Girgin**
 
 ## Bağımsızlık: `seshizi_ml/` paketi
 
-Defterler `ume-datalog/umedatalog/ultrasonic.py` ve `feature_extraction.py`
-üzerine kurulu — DSP çözümleme algoritması (paket/yankı tespiti, çapraz
-korelasyon + faz eğimi kestirimi) ile öznitelik çıkarımı orada yazıldı.
-Bu depoyu `ume-datalog`'a bağımlı kılmamak için o iki dosyanın **bir
-kopyası** `seshizi_ml/` altında tutuluyor; defterler `umedatalog` değil
-`seshizi_ml` paketini içe aktarıyor.
+Defterler `callog_pulse_echo/callog_seshizi/ultrasonic.py` ve
+`feature_extraction.py` üzerine kurulu — DSP çözümleme algoritması
+(paket/yankı tespiti, çapraz korelasyon + faz eğimi kestirimi) ile
+öznitelik çıkarımı orada yazıldı. Bu depoyu `callog_pulse_echo`'ya bağımlı
+kılmamak için o iki dosyanın **bir kopyası** `seshizi_ml/` altında
+tutuluyor; defterler `callog_seshizi` değil `seshizi_ml` paketini içe
+aktarıyor.
 
-**Bunun bedeli:** bu bir kopya, canlı bağlantı değil. `ume-datalog`'daki
-`ultrasonic.py` ileride değişirse (örn. bir DSP hatası düzeltilirse) bu
-depodaki kopya kendiliğinden güncellenmez — elle senkronize edilmeli
-(`ume-datalog/umedatalog/{ultrasonic,feature_extraction}.py` dosyalarını
-buraya kopyalayıp `feature_extraction.py`'deki
-`import umedatalog.ultrasonic` satırını `import seshizi_ml.ultrasonic`
-olarak düzeltmek yeterli). Modeli üreten kod tam olarak burada donmuş
-durumda; bu, o modelin nasıl eğitildiğinin de bir kaydı.
+**Bunun bedeli:** bu bir kopya, canlı bağlantı değil. `callog_pulse_echo`
+tarafındaki `ultrasonic.py` ileride değişirse (örn. bir DSP hatası
+düzeltilirse) bu depodaki kopya kendiliğinden güncellenmez — elle
+senkronize edilmeli (`callog_pulse_echo/callog_seshizi/{ultrasonic,
+feature_extraction}.py` dosyalarını buraya kopyalayıp
+`feature_extraction.py`'deki `import seshizi_ml.ultrasonic` satırının
+doğru kaldığından emin olmak yeterli). Modeli üreten kod tam olarak burada
+donmuş durumda; bu, o modelin nasıl eğitildiğinin de bir kaydı.
 
 ## Kurulum
 
@@ -69,9 +71,9 @@ notebooks/
 
 ## Veri nereden geliyor
 
-Ham kayıtlar `ume-datalog/tools/collect_dataset.py` ile toplandı: JSR
-**DPR300** pulser/receiver + Keysight **DSOX3012T** osiloskop, prob
-**ICHF016**, malzeme **316 paslanmaz çelik**, kademeler **25 → 2,5 mm**.
+Ham kayıtlar özel bir toplama betiğiyle alındı: JSR **DPR300**
+pulser/receiver + Keysight **DSOX3012T** osiloskop, prob **ICHF016**,
+malzeme **316 paslanmaz çelik**, kademeler **25 → 2,5 mm**.
 Her kademede sabit ayarla (`GAIN=33, HP=1.0MHz, LP=5MHz, PRF=9, AMP=9,
 ENERGY=HZ1, DAMPING=1`, 5 µs/böl · 2 V/böl) 20 tekrar alındı.
 
@@ -104,9 +106,9 @@ sorusunu test etmek için `features_invalid.csv`'de ayrı tutulur.
    grubu ayrı ayrı değerlendirir, kademe bazlı hata tablosu ve DSP-vs-ML
    karşılaştırması çıkarır.
 
-Üretilen `.pkl` dosyaları `ume-datalog/umedatalog/ml_models.py` tarafından
-uygulama açılışında doğrudan yüklenir — buradaki eğitim çıktısı, üretim
-uygulamasının kullandığı dosyalarla birebir aynıdır.
+Üretilen `.pkl` dosyaları `callog_pulse_echo/callog_seshizi/ml_models.py`
+tarafından uygulama açılışında doğrudan yüklenir — buradaki eğitim çıktısı,
+üretim uygulamasının kullandığı dosyalarla birebir aynıdır.
 
 ## Sonuçlar (özet)
 
@@ -121,7 +123,3 @@ tablolar `tum_veri_model_analizi.ipynb` içinde.
 silinirse defterler `dataset/raw/*.csv` üzerinden yeniden hesaplar (birkaç
 dakika sürer). `dataset/models/*.pkl` de aynı şekilde defterler yeniden
 çalıştırılınca üretilir — elle düzenlenmemeli.
-
-`ume-datalog/tools/replay_dataset.py`, `ultrasonic.analyze()` güncellendiğinde
-tüm veri setine karşı hızlı bir regresyon kontrolü (osiloskopa bağlanmadan)
-çalıştırmak için kullanılabilir.
